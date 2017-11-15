@@ -26,11 +26,12 @@
         </div>
         <br/>
         <br/>
-        <button id="copy" class="btn btn-primary" >Copy text</button>
+        <button id="copy" class="btn btn-primary" >Copy Text</button><span id="success" style="color: #004085;">&nbsp;Copy to clipboard successfully.</span>
     </div>
     <script>
         $("#output").hide();
         $("#copy").hide();
+        $("#success").hide();
         function getRandomSubarray(arr, size) {
             var shuffled = arr.slice(0), i = arr.length, temp, index;
             while (i--) {
@@ -74,11 +75,13 @@
             $("#output").html(newText);
             $("#copy").show();
             $("#output").show();
+            $("#success").hide();
         });
         
         $("#copy").click(function(){
             var copyText = document.getElementById("output");
             copyToClipboard(copyText);
+            $("#success").show();
         });
     </script>
 </body>
