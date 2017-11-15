@@ -6,31 +6,53 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="main.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<style>
+body{
+    background-color: #00000F;
+}    
+.container{
+    padding: 20px;
+    background-color: #00000F;
+}            
+</style>
 </head>
 <body>
     <div class="container" style="margin-top: 10%;">
         <form>
             <div class="form-group">
-                <label>Text: </label>
+                <label style="color: #fff;">Text: </label>
                 <textarea class="form-control" id="input">I love Monika</textarea>
             </div>
             <div class="form-group">
-                <label>Complexity: </label>
+                <label style="color: #fff;">Complexity: </label>
                 <input class="form-control" id="complexity" type="number" value="5"/>
             </div>
             <input id="button" type="button" value="Convert" class="btn btn-primary"/>
         </form>
         <br/>
-        <br/>
-        <div id="output" class="alert alert-primary" role="alert">
+     
+        <div id="output">
+            <div class="alert alert-primary" role="alert">
+                <b>String:&nbsp;&nbsp;</b><br/>
+                <span id="outputStr"></span>
+            </div>
+            <div class="alert alert-warning" role="alert">
+                <details>
+                    <summary><b>Code:&nbsp;&nbsp;</b></summary>
+                    <span id="outputCode"></span>
+                </details>
+            </div>
         </div>
         <br/>
-        <br/>
-        <button id="copy" class="btn btn-primary" >Copy Text</button><span id="success" style="color: #004085;">&nbsp;Copy to clipboard successfully.</span>
+        
+        <div id="copyBtn">
+            <button id="copyStr" class="btn btn-outline-primary" >Copy String</button>&nbsp;<button id="copyCode" class="btn btn-outline-warning" >Copy Code</button>
+            <span id="success" style="color: #007bff;"></span>
+        </div>
     </div>
     <script>
         $("#output").hide();
-        $("#copy").hide();
+        $("#copyBtn").hide();
         $("#success").hide();
         function getRandomSubarray(arr, size) {
             var shuffled = arr.slice(0), i = arr.length, temp, index;
@@ -53,6 +75,9 @@
         
         var charCode = []
         for (var i = 768; i < 880; i++) {
+            if (i == 856){
+                continue
+            }
             charCode.push("&#" + i.toString() + ";")
         }
         
@@ -72,16 +97,27 @@
                 }
                 newText += codes;
             }
-            $("#output").html(newText);
-            $("#copy").show();
+            $("#outputStr").html(newText);
+            $("#outputCode").text(newText);
+            $("#copyBtn").show();
             $("#output").show();
             $("#success").hide();
         });
         
-        $("#copy").click(function(){
-            var copyText = document.getElementById("output");
+        $("#copyStr").click(function(){
+            var copyText = document.getElementById("outputStr");
             copyToClipboard(copyText);
             $("#success").show();
+            $("#success").html("&nbsp;Copy string to clipboard successfully.");
+            $("#success").attr("style", "color: #007bff;");
+        });
+        
+        $("#copyCode").click(function(){
+            var copyText = document.getElementById("outputCode");
+            copyToClipboard(copyText);
+            $("#success").show();
+            $("#success").html("&nbsp;Copy code to clipboard successfully.");
+            $("#success").attr("style", "color: #ffc107;");
         });
     </script>
 </body>
