@@ -4,8 +4,57 @@
 <title>Monika</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="main.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
-    <input type="text"/>
-    <p></p>
+    <div class="container">
+        <form>
+            <div class="form-group">
+                <label>¦r¦ê: </label>
+                <textarea class="form-control" id="input">I love Monika</textarea>
+            </div>
+            <div class="form-group">
+                <label>½ÆÂø«×: </label>
+                <input class="form-control" id="complexity" type="number" value="5"/>
+            </div>
+            <input id="button" type="button" value="Âà´«" class="btn btn-primary"/>
+        </form>
+        <p id="output" ></p>
+    </div>
+    <script>
+        function getRandomSubarray(arr, size) {
+            var shuffled = arr.slice(0), i = arr.length, temp, index;
+            while (i--) {
+                index = Math.floor((i + 1) * Math.random());
+                temp = shuffled[index];
+                shuffled[index] = shuffled[i];
+                shuffled[i] = temp;
+            }
+            return shuffled.slice(0, size);
+        }
+        
+        var charCode = []
+        for (var i = 768; i <= 880; i++) {
+            charCode.push("&#" + i.toString() + ";")
+        }
+        
+        $("#button").click(function(){
+            var text = $("#input").val();
+            var complexity = $("#complexity").val();
+            var newText = ""
+            for (var i in text) {
+                if (text[i] == " "){
+                    newText += " "
+                    continue
+                }
+                var codes = text[i];
+                var codeList = getRandomSubarray(charCode, complexity);
+                for(var j in codeList){
+                    codes += codeList[j];
+                }
+                newText += codes;
+            }
+            $("#output").text(unescape(newText));
+        });
+    </script>
 </body>
