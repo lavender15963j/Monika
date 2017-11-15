@@ -19,6 +19,7 @@
             </div>
             <input id="button" type="button" value="Âà´«" class="btn btn-primary"/>
         </form>
+        <br/>
         <p id="output" ></p>
     </div>
     <script>
@@ -34,7 +35,7 @@
         }
         
         var charCode = []
-        for (var i = 768; i <= 880; i++) {
+        for (var i = 768; i < 880; i++) {
             charCode.push("&#" + i.toString() + ";")
         }
         
@@ -54,7 +55,7 @@
                 }
                 newText += codes;
             }
-            $("#output").text(unescape(newText));
+            $("#output").html(newText);
         });
     </script>
 </body>
