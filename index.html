@@ -24,7 +24,7 @@ body{
                 <textarea class="form-control" id="input">I love Monika</textarea>
             </div>
             <div class="form-group">
-                <label style="color: #fff;">C͍o͆n̳p̓l̜e̪x͞i͉t̴y̠: </label>
+                <label style="color: #fff;">C͆o̵mͫp̜l̀eͨx̃i̬tͭy̽: </label>
                 <input class="form-control" id="complexity" type="number" value="5"/>
             </div>
             <input id="button" type="button" value="C̤òn͈v̛e͗r͈t͖" class="btn btn-primary"/>
@@ -67,10 +67,10 @@ body{
             return shuffled.slice(0, size);
         }
         
-        function copyToClipboard(element) {
-          var $temp = $("<input>");
+        function copyToClipboard(text) {
+          var $temp = $("<textarea>");
           $("body").append($temp);
-          $temp.val($(element).text()).select();
+          $temp.val(text).select();
           document.execCommand("copy");
           $temp.remove();
         }
@@ -87,9 +87,14 @@ body{
             var text = $("#input").val();
             var complexity = $("#complexity").val();
             var newText = ""
+            
             for (var i in text) {
                 if (text[i] == " "){
                     newText += " "
+                    continue
+                } 
+                if (text[i] == "\n"){
+                    newText += "\n"
                     continue
                 }
                 var codes = text[i];
@@ -99,7 +104,7 @@ body{
                 }
                 newText += codes;
             }
-            $("#outputStr").html(newText);
+            $("#outputStr").html(newText.replace(/\n/gi, "<br />"));
             $("#outputCode").text(newText);
             $("#copyBtn").show();
             $("#output").show();
@@ -108,7 +113,8 @@ body{
         
         $("#copyStr").click(function(){
             var copyText = document.getElementById("outputStr");
-            copyToClipboard(copyText);
+            var text = $(copyText).html().replace(/<br>/gi, "\n");
+            copyToClipboard(text);
             $("#success").show();
             $("#success").html("&nbsp;Čȯp̐y͚ s̰t̥r̻iͧņg͓ t͐o̳ c̓lͯi͏p̠b̄o̥a̾r̵dͤ s͢u̧cͧc͡e̓s̓s̒f̂u͊l͜l̳y̗.͎");
             $("#success").attr("style", "color: #007bff;");
@@ -116,7 +122,8 @@ body{
         
         $("#copyCode").click(function(){
             var copyText = document.getElementById("outputCode");
-            copyToClipboard(copyText);
+            var text = $(copyText).text();
+            copyToClipboard(text);
             $("#success").show();
             $("#success").html("&nbsp;C͇o͈pͣy̪ c͠õdͦe͛ t͂ó c̤l̑i͟p̈́b̒o͖aͧr͝d͇ s̝u͝c͕c̣e̐s͔s̥f͉u͉l̥l̏y̪.ͯ");
             $("#success").attr("style", "color: #ffc107;");
